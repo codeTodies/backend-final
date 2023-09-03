@@ -16,49 +16,39 @@ export class CumRapService {
     return this.cumRapRepository.save(cine);
   }
 
-async findAll(maHeThongRap?: string) {
-  const list = await this.cumRapRepository.find({ relations: ['ma_he_thong_rap','ma_rap'] });
+ async findAll(maHeThongRap?: string) {
+    const list = await this.cumRapRepository.find({ relations:['ma_he_thong_rap', 'ma_rap'] });
 
-  const groupedCine = {};
+    const groupedCine = {};
 
-  list.forEach(infoCine => {
-    const maHeThongRap = infoCine.ma_he_thong_rap.maHeThongRap;
-    const cumRapInfo = {
-      id_cum_rap:infoCine.id,
-      ma_cum_rap: infoCine.cum_rap_info.ma_cum_rap,
-      ten_cum_rap: infoCine.cum_rap_info.ten_cum_rap,
-      dia_chi: infoCine.cum_rap_info.dia_chi,
-      rap_info:{
-      ma_rap:infoCine.ma_rap.rap_info.ma_rap,
-      ten_rap:infoCine.ma_rap.rap_info.ten_rap
+    list.forEach(infoCine => {
+  const maHeThongRap = infoCine.ma_he_thong_rap.maHeThongRap;
+  const cumRapInfo = {
+    ma_cum_rap: infoCine.cum_rap_info.ma_cum_rap,
+    ten_cum_rap: infoCine.cum_rap_info.ten_cum_rap,
+    dia_chi: infoCine.cum_rap_info.dia_chi,
+    rap_info: infoCine.ma_rap.map(infoRap => ({
+      ma_rap: infoRap.rap_info.ma_rap,
+      ten_rap: infoRap.rap_info.ten_rap,
+    })),
+  };
+      if (!groupedCine[maHeThongRap]) {
+        groupedCine[maHeThongRap] = [];
+      }
+
+      groupedCine[maHeThongRap].push(cumRapInfo);
+    });
+
+    if (maHeThongRap) {
+      return groupedCine[maHeThongRap] || [];
     }
-    };
 
-    if (!groupedCine[maHeThongRap]) {
-      groupedCine[maHeThongRap] = [];
-    }
+    const result = Object.keys(groupedCine).map(maHeThongRap => ({
+      ma_he_thong_rap: maHeThongRap,
+      cum_rap_info: groupedCine[maHeThongRap],
+    }));
 
-    groupedCine[maHeThongRap].push(cumRapInfo);
-  });
-
-  if (maHeThongRap) {
-    return groupedCine[maHeThongRap] || [];
-  }
-
-  const result = Object.keys(groupedCine).map(maHeThongRap => ({
-    ma_he_thong_rap: maHeThongRap,
-    cum_rap_info: groupedCine[maHeThongRap],
-  }));
- 
-  return result;
-}
-
-  findOne(id: number) {
-    return `This action returns a #${id} cumRap`;
-  }
-
-  update(id: number, updateCumRapDto: UpdateCumRapDto) {
-    return `This action updates a #${id} cumRap`;
+    return result;
   }
 
   remove() {

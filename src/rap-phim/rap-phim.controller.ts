@@ -40,14 +40,4 @@ export class RapPhimController {
     }
   }
 
-  @Get()
-  findAll() {
-    return this.rapPhimService.findAll();
-  }
-
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.rapPhimService.remove(+id);
-  }
 }

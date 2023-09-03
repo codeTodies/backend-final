@@ -8,11 +8,12 @@ export class CumRap {
   id: number;
 
   @ManyToOne(() => Cinema, cinema => cinema.maHeThongRap)
+  @JoinColumn({ name: 'ma_he_thong_rap_id' }) // Đặt tên cột cho khóa ngoại
   ma_he_thong_rap: Cinema;
 
-  @OneToMany(()=>RapPhim,rap=>rap.rap_id)
-  @JoinColumn({name:'ma_rap'})
-  ma_rap:RapPhim
+ @OneToMany(() => RapPhim, rap => rap.ma_cum_rap)
+  ma_rap: RapPhim[];
+
   // Thêm trường cum_rap_info
   @Column('json', { nullable: true })
   cum_rap_info: {

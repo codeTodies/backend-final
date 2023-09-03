@@ -9,6 +9,7 @@ import { BannerModule } from './banner/banner.module';
 import { CinemaModule } from './cinema/cinema.module';
 import { CumRapModule } from './cum-rap/cum-rap.module';
 import { RapPhimModule } from './rap-phim/rap-phim.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { RapPhimModule } from './rap-phim/rap-phim.module';
     CinemaModule,
     CumRapModule,
     RapPhimModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -16,19 +16,4 @@ export class RapPhimService {
     return this.rapPhimRepository.save(rap)
   }
 
-  findAll() {
-    return this.rapPhimRepository.find();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} rapPhim`;
-  }
-
-  update(id: number, updateRapPhimDto: UpdateRapPhimDto) {
-    return `This action updates a #${id} rapPhim`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} rapPhim`;
-  }
 }
