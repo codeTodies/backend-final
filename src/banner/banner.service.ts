@@ -12,7 +12,6 @@ constructor(
 
    async createBanner(createBanner:CreateBannerDto): Promise<Banner> {
     const banner = this.bannerRepository.create(createBanner);
-    console.log(banner);
     
     return this.bannerRepository.save(banner);
    }
@@ -22,7 +21,7 @@ constructor(
 });
     const listMovie=test.map(infoMovie=>({      
       ma_banner:infoMovie.ma_banner,
-       ma_phim: infoMovie.ma_phim.ma_phim, // sử dụng ?. để tránh lỗi
+      ma_phim: infoMovie.ma_phim.ma_phim,
       hinh_anh:infoMovie.hinh_anh,
       
     }))

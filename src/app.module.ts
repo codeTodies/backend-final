@@ -7,6 +7,8 @@ import { MulterModule } from '@nestjs/platform-express/multer';
 import { MovieModule } from './movie/movie.module';
 import { BannerModule } from './banner/banner.module';
 import { CinemaModule } from './cinema/cinema.module';
+import { CumRapModule } from './cum-rap/cum-rap.module';
+import { RapPhimModule } from './rap-phim/rap-phim.module';
 
 @Module({
   imports: [
@@ -32,6 +34,8 @@ import { CinemaModule } from './cinema/cinema.module';
     MovieModule,
     BannerModule,
     CinemaModule,
+    CumRapModule,
+    RapPhimModule,
   ],
   controllers: [AppController],
   providers: [AppService],
