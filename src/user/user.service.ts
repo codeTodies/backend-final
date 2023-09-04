@@ -12,7 +12,7 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     public userRepository: Repository<User>,
-    private readonly jwtService: JwtService,
+    private jwtService: JwtService,
   ) {}
 
  async create(createUserDto: CreateUserDto): Promise<User> {
@@ -54,8 +54,8 @@ export class UserService {
 
     // Generate and sign a JWT token
     const payload = { email: existingUser.email, sub: existingUser.id };
-    const accessToken = this.jwtService.sign(payload);
-
+    const accessToken = await this.jwtService.signAsync(payload);
+    
     return { access_token: accessToken };
   }
 
